@@ -1,7 +1,8 @@
 import numpy as np
 import paddle
+from paddle.fluid.layers.nn import shape
 from paddle.io import Sampler
-
+from paddle.tensor.random import randint
 
 class CategoriesSampler(Sampler):
 
@@ -18,7 +19,7 @@ class CategoriesSampler(Sampler):
         self.idx_list = []
         for label_idx in range(label_num):
             ind = np.argwhere(label_list == label_idx).reshape(-1)
-            ind = paddle.from_numpy(ind)
+            ind = paddle.to_tensor(ind)
             self.idx_list.append(ind)
 
     def __len__(self):
@@ -30,9 +31,11 @@ class CategoriesSampler(Sampler):
             classes = paddle.randperm(len(self.idx_list))[:self.way_num]
             for c in classes:
                 idxes = self.idx_list[c.item()]
-                pos = paddle.randperm(idxes.size(0))[:self.image_num]
+                pos = paddle.randperm(idxes.shape[0])[:self.image_num]
                 batch.append(idxes[pos])
             if len(batch) == self.episode_size * self.way_num:
-                batch = paddle.stack(batch).reshape(-1)
+                # batch = paddle.stack(batch).reshape((-1))
+                batch = paddle.stack(batch)
+                batch = paddle.reshape(batch, shape=[-1])
                 yield batch
                 batch = []

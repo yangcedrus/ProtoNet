@@ -1,1 +1,1 @@
-from utils import accuracy
+from .utils import accuracy, AverageMeter
