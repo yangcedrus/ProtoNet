@@ -27,16 +27,17 @@ def get_dataloader(config, mode='train'):
 			Normalize(MEAN, STD)
 		])
 	
-	dataset = dataset = GeneralDataset(data_root=config.data_root, mode=mode, use_memory=config.use_memory, trfms=trfms)
+	dataset = dataset = GeneralDataset(data_root=config.data_root, mode=mode, use_memory=False, trfms=trfms)
 
 	sampler = CategoriesSampler(label_list=dataset.label_list,
 									label_num=dataset.label_num,
 									episode_size=config.episode_size,
 									episode_num=config.train_episode
 									if mode == 'train' else config.test_episode,
-									way_num=config.way_num,
+									way_num=config.way_num
+									if mode == 'train' else config.test_way,
 									image_num=config.shot_num + config.query_num)
 	dataloader = DataLoader(dataset, batch_sampler=sampler,
-									num_workers=config.n_gpu * 4)
+									num_workers=config.n_gpu * 8, collate_fn=None)
 									
 	return dataloader

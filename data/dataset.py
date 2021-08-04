@@ -110,14 +110,14 @@ class GeneralDataset(Dataset):
 
     def __getitem__(self, idx):
         if self.use_memory:
-            data = self.data_list[idx]
+            data = self.data_list[idx].cpu()
         else:
             image_name = self.data_list[idx]
             image_path = os.path.join(self.data_root, 'images', image_name)
             data = self.loader(image_path)
 
         if self.trfms is not None:
-            data = self.trfms(data)
+            data = self.trfms(data).cpu()
         label = self.label_list[idx]
 
         return data, label
