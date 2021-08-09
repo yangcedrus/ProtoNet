@@ -11,7 +11,7 @@ set的同一类样本的所有embedding的质心作为这一类的prototype。qu
 输入训练集<img src="http://latex.codecogs.com/gif.latex?D=(x_1,y_1),...,(x_n,y_n)"/>，其中<img src="http://latex.codecogs.com/gif.latex?y_i"/>是标签，<img src="http://latex.codecogs.com/gif.latex?D_k"/>是标签<img src="http://latex.codecogs.com/gif.latex?y_i=k"/>的子训练集。
 
 在每个episode中，随机选取<img src="http://latex.codecogs.com/gif.latex?N_s"/>个样本作为support set <img src="http://latex.codecogs.com/gif.latex?S_k"/>，同时选取同一类的不同的<img src="http://latex.codecogs.com/gif.latex?N_q"/>个样本作为query set <img src="http://latex.codecogs.com/gif.latex?S_q"/>,通过
-<img src="http://latex.codecogs.com/gif.latex?c_k=\frac{1}{N_C}\sum_{(x_i,y_i)\in\{}S_K}f_{\phi}(x_i)"/>计算每个类的原型向量<img src="http://latex.codecogs.com/gif.latex?c_k"/>。并依此对所有query set的样本进行分类，通过得到的损失更新网络。
+<img src="http://latex.codecogs.com/gif.latex?c_k=\frac{1}{N_C}\sum_{(x_i,y_i)\in\ S_K}f_{\phi}(x_i)"/>计算每个类的原型向量<img src="http://latex.codecogs.com/gif.latex?c_k"/>。并依此对所有query set的样本进行分类，通过得到的损失更新网络。
 
 ## 原论文效果
 <img src='./image/result.png' width='640' height='280'>
