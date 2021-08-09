@@ -21,7 +21,7 @@ parser.add_argument('--data_root', type=str, default='/data/yxs/miniImageNet--ra
 parser.add_argument('--checkpoint_path', type=str, default="./results/5way_5shot_model_best.pth")
 parser.add_argument('--episode_size', type=int, default=1)
 parser.add_argument('--train_episode', type=int, default=1000)
-parser.add_argument('--test_episode', type=int, default=600)
+parser.add_argument('--test_episode', type=int, default=6000)
 parser.add_argument('--backbone', type=str, default='ConvNet', choices=['ConvNet', 'Res12'])
 parser.add_argument('--test_way', type=int, default=5)
 parser.add_argument('--shot_num', type=int, default=1)
