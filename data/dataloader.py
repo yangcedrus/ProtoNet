@@ -27,7 +27,7 @@ def get_dataloader(config, mode='train'):
 			Normalize(MEAN, STD)
 		])
 	
-	dataset = dataset = GeneralDataset(data_root=config.data_root, mode=mode, use_memory=False, trfms=trfms)
+	dataset = dataset = GeneralDataset(data_root=config.data_root, mode=mode, use_memory=config.use_memory, trfms=trfms)
 
 	sampler = CategoriesSampler(label_list=dataset.label_list,
 									label_num=dataset.label_num,
