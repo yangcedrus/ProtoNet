@@ -10,7 +10,7 @@ set的同一类样本的所有embedding的质心作为这一类的prototype。qu
 详细分析算法流程：
 首先输入训练集<img src="http://latex.codecogs.com/gif.latex?D=(x_1,y_1),...,(x_n,y_n)"/>，其中<img src="http://latex.codecogs.com/gif.latex?y_i"/>是标签，<img src="http://latex.codecogs.com/gif.latex?D_k"/>是标签<img src="http://latex.codecogs.com/gif.latex?y_i=k"/>的子训练集。
 
-在每个episode中：随机选取$N_s$个样本作为support set($S_k$)，同时选取同一类的不同的$N_q$个样本作为query set($S_q$),
+在每个episode中：随机选取<img src="http://latex.codecogs.com/gif.latex?N_s"/>个样本作为support set(<img src="http://latex.codecogs.com/gif.latex?S_k"/>)，同时选取同一类的不同的$N_q$个样本作为query set(<img src="http://latex.codecogs.com/gif.latex?S_q"/>),
 
 ## 原论文效果
 <img src='./image/result.png' width='640' height='280'>
