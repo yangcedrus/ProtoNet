@@ -7,6 +7,11 @@
 prototypical networks属于小样本学习中基于度量的算法。它将support
 set的同一类样本的所有embedding的质心作为这一类的prototype。query直接用自己的embedding去找最近的prototype，从而完成分类。
 
+详细分析算法流程：
+首先输入训练集$D=(x_1,y_1),...,(x_n,y_n)$，其中$y_i$是标签，$D_k$是标签$y_i=k$的子训练集。
+
+在每个episode中：随机选取$N_s$个样本作为support set($S_k$)，同时选取同一类的不同的$N_q$个样本作为query set($S_q$),
+
 ## 原论文效果
 <img src='./image/result.png' width='640' height='280'>
 
