@@ -14,30 +14,6 @@ def pil_loader(path):
         with Image.open(f) as img:
             return img.convert('RGB')
 
-
-def accimage_loader(path):
-    import accimage
-    try:
-        return accimage.Image(path)
-    except IOError:
-        # potentially a decoding problem, fall back to PIL.Image
-        return pil_loader(path)
-
-
-def gray_loader(path):
-    with open(path, 'rb') as f:
-        with Image.open(f) as img:
-            return img.convert('P')
-
-
-def default_loader(path):
-    from torchvision import get_image_backend
-    if get_image_backend() == 'accimage':
-        return accimage_loader(path)
-    else:
-        return pil_loader(path)
-
-
 class GeneralDataset(Dataset):
     def __init__(self, data_root="", mode="train", loader=pil_loader,
                  use_memory=True, trfms=None):
