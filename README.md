@@ -7,17 +7,17 @@
 prototypical networks属于小样本学习中基于度量的算法。它将support
 set的同一类样本的所有embedding的质心作为这一类的prototype。query直接用自己的embedding去找最近的prototype，从而完成分类。
 
-##原论文效果
+## 原论文效果
 <img src='./image/result.png' width='640' height='280'>
 
-##实验环境
+## 实验环境
 - [Python-3.7]
 
 - [PaddlePaddle-2.1.2]
 
 - [Cuda-11.2 and Cudnn-8.1]
 
-##实验步骤
+## 实验步骤
 （一）数据处理\
 &emsp;数据集下载\
 &emsp;数据集预处理:  将miniImageNet数据集按照csv文件分别读取训练集、验证集和测试集。并进一步将其进行采样，划分出每个任务的support
@@ -52,7 +52,7 @@ set和query set。（详见data文件夹）
     $ python /script/test_5w_5s.sh  用于测试5way-5shot
 
 
-##模型性能
+## 模型性能
 我们复现的方法在5way-1shot上超过论文的性能0.57%，在5way-5shot上超过论文的性能0.18%。
 
 **miniImageNet Dataset**
