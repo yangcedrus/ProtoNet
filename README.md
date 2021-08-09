@@ -10,7 +10,7 @@ set的同一类样本的所有embedding的质心作为这一类的prototype。qu
 详细分析算法流程：
 首先输入训练集<img src="http://latex.codecogs.com/gif.latex?D=(x_1,y_1),...,(x_n,y_n)"/>，其中<img src="http://latex.codecogs.com/gif.latex?y_i"/>是标签，<img src="http://latex.codecogs.com/gif.latex?D_k"/>是标签<img src="http://latex.codecogs.com/gif.latex?y_i=k"/>的子训练集。
 
-在每个episode中：随机选取<img src="http://latex.codecogs.com/gif.latex?N_s"/>个样本作为support set(<img src="http://latex.codecogs.com/gif.latex?S_k"/>)，同时选取同一类的不同的$N_q$个样本作为query set(<img src="http://latex.codecogs.com/gif.latex?S_q"/>),
+在每个episode中：随机选取<img src="http://latex.codecogs.com/gif.latex?N_s"/>个样本作为support set <img src="http://latex.codecogs.com/gif.latex?S_k"/>，同时选取同一类的不同的<img src="http://latex.codecogs.com/gif.latex?N_q"/>个样本作为query set <img src="http://latex.codecogs.com/gif.latex?S_q"/>,通过<img src="http://latex.codecogs.com/gif.latex?c_k=\frac{1}{N_C}\sum_{(x_i,y_i)\in S_K}f_{\phi}(x_i)"/>计算每个类的原型向量<img src="http://latex.codecogs.com/gif.latex?c_k"/>。并依此对所有query set的样本进行分类，更新损失函数。
 
 ## 原论文效果
 <img src='./image/result.png' width='640' height='280'>
@@ -25,8 +25,7 @@ set的同一类样本的所有embedding的质心作为这一类的prototype。qu
 ## 实验步骤
 （一）数据处理\
 &emsp;数据集下载\
-&emsp;数据集预处理:  将miniImageNet数据集按照csv文件分别读取训练集、验证集和测试集。并进一步将其进行采样，划分出每个任务的support
-set和query set。（详见data文件夹）
+&emsp;数据集预处理:  需要将`miniImageNet`数据集处理为如下格式：所有图像放到`../miniImageNet/images/`目录下，然后将本库中`data/split/`下的csv文件放到`../miniImageNet/`目录下，最后修改`train.py`和`test.py`中的`data_root`参数为`miniImageNet`目录所在路径。
 
     
 （二）修改参数配置
