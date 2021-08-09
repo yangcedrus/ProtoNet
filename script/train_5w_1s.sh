@@ -1,0 +1,1 @@
+python trainer.py --way_num 5 --shot_num 1 --cos --lr 0.01

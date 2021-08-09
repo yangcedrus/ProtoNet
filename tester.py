@@ -15,19 +15,17 @@ from data import get_dataloader
 from utils import accuracy, AverageMeter
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--batch_size', type=int, default=16)
-parser.add_argument('--epoch', type=int, default=200)
-parser.add_argument('--lr', type=float, default=0.001)
+parser.add_argument('--epoch', type=int, default=1)
 parser.add_argument('--n_gpu', type=int, default=1, help='0 = CPU.')
 parser.add_argument('--data_root', type=str, default='/data/yxs/miniImageNet--ravi')
-parser.add_argument('--checkpoint_path', type=str, default="")
+parser.add_argument('--checkpoint_path', type=str, default="./results/5way_5shot_model_best.pth")
 parser.add_argument('--episode_size', type=int, default=1)
 parser.add_argument('--train_episode', type=int, default=1000)
-parser.add_argument('--test_episode', type=int, default=6000)
+parser.add_argument('--test_episode', type=int, default=600)
 parser.add_argument('--backbone', type=str, default='ConvNet', choices=['ConvNet', 'Res12'])
-parser.add_argument('--shot_num', type=int, default=5)
-parser.add_argument('--query_num', type=int, default=15)
 parser.add_argument('--test_way', type=int, default=5)
+parser.add_argument('--shot_num', type=int, default=1)
+parser.add_argument('--query_num', type=int, default=15)
 parser.add_argument('--use_memory', action='store_true')
 config = parser.parse_args()
 config.orig_imsize = -1
@@ -38,7 +36,7 @@ if config.shot_num == 1:
 else:
     paddle.set_device("gpu:1")
 
-f = open("{}shot_train.txt".format(config.shot_num), 'w', buffering=1)
+f = open("{}way_{}shot_test.txt".format(config.test_way, config.shot_num), 'w', buffering=1)
 
 
 def mean_confidence_interval(data, confidence=0.95):
@@ -69,7 +67,7 @@ def split_by_episode(features, way_num):
 
 @paddle.no_grad()
 def val_epoch(backbone, classifier, dataloader, loss_fn, epoch):
-    meter = AverageMeter('test', ['acc'])
+    meter = AverageMeter('test', ['acc', 'loss'])
     acc_list = []
     for iter_id, data in enumerate(dataloader()):
 
@@ -81,6 +79,7 @@ def val_epoch(backbone, classifier, dataloader, loss_fn, epoch):
 
         # 计算损失
         loss = loss_fn(predicts, query_targets.reshape([-1]))
+        meter.update('loss', loss)
 
         # 计算准确率
         [acc] = accuracy(predicts, query_targets.reshape([-1]))
@@ -88,7 +87,7 @@ def val_epoch(backbone, classifier, dataloader, loss_fn, epoch):
         meter.update('acc', acc)
 
         if (iter_id+1) % 100 == 0:
-            msg = "epoch: {}, iter_id: {}, loss is: {}, acc is: {}".format(epoch, iter_id+1, loss.numpy(), acc.numpy())
+            msg = "epoch: {}, iter_id: {}, loss is: {}, acc is: {}".format(epoch, iter_id+1, meter.avg('loss'),meter.avg('acc'))
             print(msg)
             f.write(msg+"\n")
 
@@ -115,8 +114,8 @@ def main(config):
         print("====================start test====================")
         f.write("====================start test===================="+"\n")
         test_acc, test_h = val_epoch(backbone, test_classifier, test_loader, loss_fn, epoch)
-        print("Test acc:{}\Test h:{}".format(test_acc, test_h))
-        f.write("Test acc:{}\Test h:{}".format(test_acc, test_h)+"\n")
+        print("Test acc:{}\tTest h:{}".format(test_acc, test_h))
+        f.write("Test acc:{}\tTest h:{}".format(test_acc, test_h)+"\n")
 
         total_acc += test_acc
         total_h += test_h

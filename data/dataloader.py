@@ -38,6 +38,6 @@ def get_dataloader(config, mode='train'):
 									if mode == 'train' else config.test_way,
 									image_num=config.shot_num + config.query_num)
 	dataloader = DataLoader(dataset, batch_sampler=sampler,
-									num_workers=config.n_gpu * 8, collate_fn=None)
+									num_workers=config.n_gpu * 4, collate_fn=None)
 									
 	return dataloader

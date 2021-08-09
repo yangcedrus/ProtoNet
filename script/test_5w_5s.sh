@@ -1,0 +1,1 @@
+python tester.py --test_way 5 --shot_num 5 --checkpoint_path ./results/5way_5shot_model_best.pth
