@@ -26,7 +26,7 @@ set的同一类样本的所有embedding的质心作为这一类的prototype。qu
 ## 实验步骤
 （一）数据处理
 
-+ ![数据集下载](https://drive.google.com/file/d/1Oq7JKbd8-6QgLXbZ1MW4Wkv39EgDBk5t/view?usp=sharing)
++ [数据集下载](https://drive.google.com/file/d/1Oq7JKbd8-6QgLXbZ1MW4Wkv39EgDBk5t/view?usp=sharing)
 + 数据集预处理:  需要将`miniImageNet`数据集处理为如下格式：所有图像放到`../miniImageNet/images/`目录下，然后将本库中`data/split/`下的csv文件放到`../miniImageNet/`目录下，最后修改`train.py`和`test.py`中的`data_root`参数为`miniImageNet`目录所在路径。
 
     
