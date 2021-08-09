@@ -28,7 +28,6 @@ set和query set。（详见data文件夹）
 
 - `epoch` 训练的epoch个数
 - `lr` 学习率
-- `n_gpu` gpu选择
 - `data_root` 数据所在路径
 - `episode_size` 每次优化的任务数
 - `train_episode` 在训练阶段每个epoch的任务数

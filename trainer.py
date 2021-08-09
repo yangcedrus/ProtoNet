@@ -14,7 +14,6 @@ from data import get_dataloader
 from utils import accuracy, AverageMeter
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--batch_size', type=int, default=16)
 parser.add_argument('--epoch', type=int, default=100)
 parser.add_argument('--lr', type=float, default=0.001)
 parser.add_argument('--n_gpu', type=int, default=1, help='0 = CPU.')
@@ -22,7 +21,7 @@ parser.add_argument('--data_root', type=str, default='/data/yxs/miniImageNet--ra
 parser.add_argument('--episode_size', type=int, default=1)
 parser.add_argument('--train_episode', type=int, default=10000)
 parser.add_argument('--test_episode', type=int, default=1000)
-parser.add_argument('--backbone', type=str, default='ConvNet', choices=['ConvNet', 'Res12'])
+# parser.add_argument('--backbone', type=str, default='ConvNet', choices=['ConvNet', 'Res12'])
 parser.add_argument('--way_num', type=int, default=20)
 parser.add_argument('--shot_num', type=int, default=5)
 parser.add_argument('--query_num', type=int, default=15)
