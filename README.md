@@ -49,13 +49,18 @@ set的同一类样本的所有embedding的质心作为这一类的prototype。qu
 
     $ python /script/train_5w_1s.sh  用于训练5way-1shot
     $ python /script/train_5w_5s.sh  用于训练5way-5shot
+    
+    [5way-1shot训练日志](https://drive.google.com/file/d/1Q7Wg6cUprnpfIiakEvKWv92Ij_L4RM1O/view?usp=sharing)
+    [5way-5shot训练日志](https://drive.google.com/file/d/1NaOANcTVkL_5ftpdszfo1w3ApBbwEraw/view?usp=sharing)
 
 
 （四）模型测试
 
     $ python /script/test_5w_1s.sh  用于测试5way-1shot 
     $ python /script/test_5w_5s.sh  用于测试5way-5shot
-
+    
+    [5way-1shot测试日志](https://drive.google.com/file/d/1NJjCmK8gwG2iq5WlEw_5StbxSY0HhWIz/view?usp=sharing)
+    [5way-5shot测试日志](https://drive.google.com/file/d/1jEFHm9JQ_iuUERGunUxGo4n3dbuVvDgH/view?usp=sharing)
 
 ## 模型性能
 我们复现的方法在5way-1shot上超过论文的性能0.32%，在5way-5shot上超过论文的性能0.18%。并且我们的复现是使用6000个任务进行测试得到的结果，原文中使用的是600个任务，因此我们的结果具有更高的可信度。
