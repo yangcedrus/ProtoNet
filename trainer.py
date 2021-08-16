@@ -159,7 +159,7 @@ def main(config):
 
         if val_acc>best_acc:
             best_acc = val_acc
-            path = "./results/{}way_{}shot_model_best.pth".format(config.way_num, config.shot_num)
+            path = "./results/{}way_{}shot_model_best.pdparams".format(config.way_num, config.shot_num)
             paddle.save(backbone.state_dict(), path)
 
 if __name__ == "__main__":

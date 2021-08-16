@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--epoch', type=int, default=1)
 parser.add_argument('--n_gpu', type=int, default=1, help='0 = CPU.')
 parser.add_argument('--data_root', type=str, default='/data/yxs/miniImageNet--ravi')
-parser.add_argument('--checkpoint_path', type=str, default="./results/5way_5shot_model_best.pth")
+parser.add_argument('--checkpoint_path', type=str, default="./results/5way_5shot_model_best.pdparams")
 parser.add_argument('--episode_size', type=int, default=1)
 parser.add_argument('--train_episode', type=int, default=1000)
 parser.add_argument('--test_episode', type=int, default=6000)
@@ -107,6 +107,7 @@ def main(config):
 
     # 设置损失函数
     loss_fn = paddle.nn.CrossEntropyLoss()
+    backbone.eval()
 
     total_acc = 0
     total_h = 0
