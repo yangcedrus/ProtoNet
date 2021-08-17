@@ -63,13 +63,13 @@ def train_epoch(backbone, classifier, dataloader, optimizer, loss_fn, epoch):
     meter = AverageMeter('train', ['acc', 'loss'])
     for iter_id, data in enumerate(dataloader()):
 
-        x_data = data[0]            # 训练数据
-        emb = backbone(x_data)    # 预测结果
+        x_data = data[0]          # 训练数据
+        emb = backbone(x_data)    # 提取特征
         
-        support_features, query_features, support_targets, query_targets = split_by_episode(emb, config.way_num)
-        predicts = classifier(query_features, support_features).reshape([config.episode_size * config.way_num * config.query_num, config.way_num])
+        support_features, query_features, support_targets, query_targets = split_by_episode(emb, config.way_num)    # 将特征拆分为supportset与query set，同时生成对应标签
+        predicts = classifier(query_features, support_features).reshape([config.episode_size * config.way_num * config.query_num, config.way_num])  # 得到预测结果
 
-        # 计算损失
+        # 计算损失，对应论文公式（2）
         loss = loss_fn(predicts, query_targets.reshape([-1]))
         meter.update('loss', loss)
 
@@ -99,12 +99,12 @@ def val_epoch(backbone, classifier, dataloader, loss_fn, epoch):
     for iter_id, data in enumerate(dataloader()):
 
         x_data = data[0]          # 训练数据
-        emb = backbone(x_data)    # 
+        emb = backbone(x_data)    # 提取特征
         
-        support_features, query_features, support_targets, query_targets = split_by_episode(emb, config.test_way)
-        predicts = classifier(query_features, support_features).reshape([config.episode_size * config.test_way * config.query_num, config.test_way])
+        support_features, query_features, support_targets, query_targets = split_by_episode(emb, config.test_way)   # 将特征拆分为supportset与query set，同时生成对应标签
+        predicts = classifier(query_features, support_features).reshape([config.episode_size * config.test_way * config.query_num, config.test_way])    # 得到预测结果
 
-        # 计算损失
+        # 计算损失，对应论文公式（2）
         loss = loss_fn(predicts, query_targets.reshape([-1]))
         meter.update('loss', loss)
 
@@ -147,8 +147,6 @@ def main(config):
         train_acc = train_epoch(backbone, train_classifier, train_loader, optim, loss_fn, epoch)
         print("Avg acc:{}".format(train_acc))
         f.write("Avg acc:{}".format(train_acc)+"\n")
-        # if epoch<10:
-        #     continue
         print("====================start validation====================")
         f.write("====================start validation===================="+"\n")
         val_acc = val_epoch(backbone, test_classifier, val_loader, loss_fn, epoch)

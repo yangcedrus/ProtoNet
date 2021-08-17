@@ -3,11 +3,7 @@ import pandas as pd
 
 def accuracy(output, target, topk=(1,)):
     """
-
-    :param output:
-    :param target:
-    :param topk:
-    :return:
+    计算准确率
     """
     with paddle.no_grad():
         maxk = max(topk)
@@ -25,7 +21,7 @@ def accuracy(output, target, topk=(1,)):
 
 class AverageMeter(object):
     """
-
+    记录信息
     """
 
     def __init__(self, name, keys, writer=None):

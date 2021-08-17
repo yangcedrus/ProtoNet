@@ -72,10 +72,10 @@ def val_epoch(backbone, classifier, dataloader, loss_fn, epoch):
     for iter_id, data in enumerate(dataloader()):
 
         x_data = data[0]          # 训练数据
-        emb = backbone(x_data)    # 
+        emb = backbone(x_data)    # 提取特征
         
-        support_features, query_features, support_targets, query_targets = split_by_episode(emb, config.test_way)
-        predicts = classifier(query_features, support_features).reshape([config.episode_size * config.test_way * config.query_num, config.test_way])
+        support_features, query_features, support_targets, query_targets = split_by_episode(emb, config.test_way)   # 将特征拆分为supportset与query set，同时生成对应标签
+        predicts = classifier(query_features, support_features).reshape([config.episode_size * config.test_way * config.query_num, config.test_way])    # 得到预测结果
 
         # 计算损失
         loss = loss_fn(predicts, query_targets.reshape([-1]))
